@@ -1,238 +1,157 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Oso Abrazo Virtual</title>
-  <style>
-    body {
-      background: linear-gradient(135deg, #ece9e6 0%, #ffffff 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-    }
+<meta charset="UTF-8">
+<title>Para Rocío</title>
 
-    .oso-container {
-      position: relative;
-      width: 220px;
-      height: 260px;
-      margin-top: 30px;
-      cursor: pointer;
-      transition: transform 0.1s;
-    }
-    .oso-container:active {
-      transform: scale(1.04);
-    }
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
 
-    .cuerpo {
-      background: #7b5e57;
-      width: 200px;
-      height: 160px;
-      border-radius: 100px 100px 110px 110px / 120px 120px 90px 90px;
-      position: absolute;
-      top: 60px;
-      left: 10px;
-      z-index: 1;
-    }
-    .cabeza {
-      background: #9a795a;
-      width: 150px;
-      height: 140px;
-      border-radius: 75px;
-      position: absolute;
-      top: 0;
-      left: 35px;
-      z-index: 2;
-      box-shadow: 0 6px 10px #e5d6ce42;
-    }
-    .oreja {
-      position: absolute;
-      background: #9a795a;
-      width: 54px;
-      height: 55px;
-      border-radius: 50%;
-      top: 8px;
-      z-index: 0;
-      box-shadow: 0 4px 8px #bba08a32;
-    }
-    .oreja.izq { left: -20px; }
-    .oreja.der { right: -20px; }
-    .oreja-int {
-      background: #ecd5bc;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      position: absolute;
-      top: 8px;
-      left: 10px;
-    }
-    .ojo {
-      background: #49362d;
-      width: 12px;
-      height: 18px;
-      border-radius: 50%;
-      position: absolute;
-      top: 55px;
-      z-index: 3;
-    }
-    .ojo.izq { left: 60px; }
-    .ojo.der { left: 100px; }
-    .hocico {
-      width: 44px;
-      height: 34px;
-      background: #ecd5bc;
-      border-radius: 50% / 40%;
-      position: absolute;
-      top: 85px;
-      left: 57px;
-      z-index: 5;
-    }
-    .nariz {
-      width: 18px;
-      height: 14px;
-      background: #49362d;
-      border-radius: 50% / 40%;
-      position: absolute;
-      top: 94px;
-      left: 76px;
-      z-index: 8;
-    }
-    .boca {
-      position: absolute;
-      width: 24px;
-      height: 16px;
-      border-bottom: 3px solid #49362d;
-      border-radius: 0 0 22px 22px;
-      top: 106px;
-      left: 68px;
-      z-index: 9;
-    }
-    .brazo {
-      background: #9a795a;
-      width: 58px;
-      height: 90px;
-      border-radius: 35px 35px 50px 50px / 45px 45px 90px 90px;
-      position: absolute;
-      top: 120px;
-      transition: all 0.28s cubic-bezier(.75,1.7,.45,.8);
-      transform-origin: top center;
-      z-index: 10;
-    }
-    .brazo.izq {
-      left: -45px;
-      rotate: -36deg;
-    }
-    .brazo.der {
-      right: -45px;
-      rotate: 36deg;
-    }
-    .oso-abrazando .brazo.izq,
-    .oso-container:active .brazo.izq {
-      left: 10px;
-      rotate: 0deg;
-      transform: scaleY(1.05) scaleX(1.10);
-    }
-    .oso-abrazando .brazo.der,
-    .oso-container:active .brazo.der {
-      right: 10px;
-      rotate: 0deg;
-      transform: scaleY(1.05) scaleX(1.10);
-    }
-    .pierna {
-      background: #7b5e57;
-      width: 44px;
-      height: 70px;
-      border-radius: 40% 50% 60% 60%/70% 100% 90% 90%;
-      position: absolute;
-      z-index: 0;
-      top: 188px;
-    }
-    .pierna.izq { left: 30px; }
-    .pierna.der { right: 30px; }
-    .panza {
-      background: #eedfc7;
-      width: 74px;
-      height: 78px;
-      border-radius: 50%;
-      position: absolute;
-      left: 63px;
-      top: 120px;
-      z-index: 3;
-      opacity: .9;
-    }
+body{
+height:100vh;
+background:linear-gradient(180deg,#000000,#0a0a0a,#111);
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+overflow:hidden;
+color:white;
+}
 
-    .mensaje-abrazo {
-      opacity: 0;
-      pointer-events: none;
-      font-size: 1.6em;
-      font-weight: bold;
-      color: #af6832;
-      background: #ffe9cbcc;
-      border-radius: 22px;
-      padding: 16px 36px;
-      position: absolute;
-      left: 50%;
-      top: -80px;
-      transform: translate(-50%, -40px) scale(0.9);
-      box-shadow: 0 3px 28px #ccac8862;
-      transition: opacity .37s, transform .37s;
-      z-index: 100;
-      text-shadow: 0 4px 8px #fff3;
-    }
-    .oso-abrazando .mensaje-abrazo {
-      opacity: 1;
-      transform: translate(-50%, 0) scale(1.05);
-      pointer-events: auto;
-      transition: opacity .24s, transform .23s;
-      animation: pump 1.08s 1 cubic-bezier(.8,-.4,.5,1.7);
-    }
-    @keyframes pump {
-      0% { transform: translate(-50%, 0) scale(1); }
-      25% { transform: translate(-50%, 0) scale(1.12);}
-      60% { transform: translate(-50%, 0) scale(0.97);}
-      100% { transform: translate(-50%, 0) scale(1.05);}
-    }
-    .ayuda {
-      margin-bottom: 16px;
-      color: #A87852;
-      font-size: 1.13em; 
-      background: #fffbe9e0; 
-      padding: 9px 22px;
-      border-radius: 19px;
-      box-shadow: 0 2px 12px #c0bcb332;
-    }
-  </style>
+/* estrellas */
+body::before{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background-image:radial-gradient(white 1px, transparent 1px);
+background-size:40px 40px;
+opacity:0.15;
+animation: estrellas 60s linear infinite;
+}
+
+@keyframes estrellas{
+from{transform:translateY(0);}
+to{transform:translateY(-2000px);}
+}
+
+h1{
+position:absolute;
+top:60px;
+font-size:40px;
+letter-spacing:2px;
+opacity:0;
+animation:aparecer 2s forwards;
+}
+
+@keyframes aparecer{
+to{opacity:1;}
+}
+
+.sub{
+position:absolute;
+top:110px;
+font-size:18px;
+color:#ffb6c1;
+opacity:0;
+animation:aparecer 3s forwards;
+}
+
+/* osito */
+.oso{
+font-size:140px;
+cursor:pointer;
+transition:.3s;
+z-index:2;
+}
+
+.oso:hover{
+transform:scale(1.1);
+}
+
+/* mensaje abrazo */
+.mensaje{
+margin-top:20px;
+font-size:28px;
+opacity:0;
+transform:scale(0.5);
+transition:.5s;
+text-align:center;
+color:#ffd1dc;
+}
+
+.mostrar{
+opacity:1;
+transform:scale(1);
+}
+
+/* animación abrazo */
+@keyframes abrazo{
+0%{transform:scale(1);}
+25%{transform:scale(1.25);}
+50%{transform:scale(1);}
+75%{transform:scale(1.25);}
+100%{transform:scale(1);}
+}
+
+.animar{
+animation:abrazo 1s ease;
+}
+
+/* corazones flotando */
+.corazon{
+position:absolute;
+color:#ff4d6d;
+font-size:20px;
+animation:flotar 4s linear forwards;
+}
+
+@keyframes flotar{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-600px);opacity:0;}
+}
+</style>
 </head>
+
 <body>
-  <div class='ayuda'>¡Toca el oso y recibí un abrazo virtual!</div>
-  <div class="oso-container" onclick="abrazoOso(this)">
-    <div class="oreja izq"><div class="oreja-int"></div></div>
-    <div class="oreja der"><div class="oreja-int"></div></div>
-    <div class="cabeza">
-      <div class="ojo izq"></div>
-      <div class="ojo der"></div>
-      <div class="hocico"></div>
-      <div class="nariz"></div>
-      <div class="boca"></div>
-    </div>
-    <div class="cuerpo"></div>
-    <div class="brazo izq"></div>
-    <div class="brazo der"></div>
-    <div class="panza"></div>
-    <div class="pierna izq"></div>
-    <div class="pierna der"></div>
-    <div class="mensaje-abrazo">🐻 ¡Abrazo virtual para vos! 🤗</div>
-  </div>
-  <script>
-    function abrazoOso(oso) {
-      oso.classList.add('oso-abrazando');
-      setTimeout(() => {
-        oso.classList.remove('oso-abrazando');
-      }, 1600);
-    }
-  </script>
+
+<h1>Para Rocío</h1>
+<div class="sub">tocá el osito 🧸</div>
+
+<div class="oso" onclick="abrazo()">🧸</div>
+<div id="msg" class="mensaje">
+Te mando un abrazo virtual enorme 🤗<br>
+aunque prefiero dártelo en persona.
+</div>
+
+<script>
+function abrazo(){
+const msg=document.getElementById("msg");
+const oso=document.querySelector(".oso");
+
+msg.classList.add("mostrar");
+oso.classList.add("animar");
+
+for(let i=0;i<12;i++){
+let heart=document.createElement("div");
+heart.className="corazon";
+heart.innerHTML="❤";
+heart.style.left=Math.random()*window.innerWidth+"px";
+heart.style.top="70%";
+heart.style.fontSize=(Math.random()*20+15)+"px";
+document.body.appendChild(heart);
+
+setTimeout(()=>{heart.remove();},4000);
+}
+
+setTimeout(()=>{oso.classList.remove("animar");},1000);
+}
+</script>
+
 </body>
 </html>
