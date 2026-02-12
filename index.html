@@ -1,24 +1,36 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Para Rocío</title>
-<style>
-body{
-  background:black;
-  color:white;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-family:Arial;
-  font-size:40px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Bear Emoji</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .bear {
+            font-size: 100px;
+            cursor: pointer;
+            transition: transform 0.5s;
+        }
+        .bear.hug {
+            transform: scale(1.2); /* Animate to hug */
+        }
+    </style>
 </head>
-
 <body>
-🧸 Hola Rocío
+    <div class="bear" id="bear">🧸</div>
+    <script>
+        const bear = document.getElementById('bear');
+        bear.addEventListener('click', () => {
+            bear.classList.toggle('hug');
+            setTimeout(() => { bear.classList.toggle('hug'); }, 500); // Remove hug class after 500ms
+        });
+    </script>
 </body>
 </html>
-
